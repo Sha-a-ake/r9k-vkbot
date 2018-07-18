@@ -23,7 +23,7 @@ def longpoll_listen(longpoll, vk_session):
         t = time.time()
         print(kicked)
         for key, value in kicked.items():
-            if t > value:
+            if t >= value:
                 vk_session.messages.addChatUser(chat_id = cid, user_id = str(key))
                 kicked.pop(key, None)
 
@@ -44,16 +44,20 @@ def main():
 
     longpoll = VkLongPoll(vk_session)
     vk = vk_session.get_api()
-
-    while True:
+    friends_add(vk)
+'''    while True:
         print("Listening")
         try:
             longpoll_listen(longpoll, vk)
         except KeyboardInterrupt:
             sys.exit()
         except Exception as error:
-            print(error)
- 
+            print(error)'''
+def friends_add(vk):
+	friends = vk.friends.getRequests()
+	for friend in friends['items']:
+		vk.friends.add(user_id = friend, follow = 0)
+
 
 if __name__ == '__main__':
     search.init()
