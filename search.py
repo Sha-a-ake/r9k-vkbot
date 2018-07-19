@@ -12,5 +12,5 @@ def search(dic, word):
     return True
 
 
-def searchf(word):
+def duplicateString(word):
     return search(words, word)

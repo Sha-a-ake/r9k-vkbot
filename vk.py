@@ -13,19 +13,26 @@ kicked = dict()
 # conference id
 cid = 84
 
+def kick_user(vk, user):
+    vk.messages.removeChatUser(chat_id = cid, user_id = user)
+    kicked[str(event.user_id)] = time.time() + 10
 
-def longpoll_listen(longpoll, vk_session):
+
+def return_kicked(vk):
+    t = time.time()
+    for key, value in kicked.items():
+        if t >= value:
+            vk.messages.addChatUser(chat_id = cid, user_id = str(key))
+            kicked.pop(key, None)
+
+
+def longpoll_listen(longpoll, vk):
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.text and event.chat_id == cid:
-            if search.searchf(event.text):
-                vk_session.messages.removeChatUser(chat_id = cid, user_id = event.user_id)
-                kicked[str(event.user_id)] = time.time() + 10
-        t = time.time()
-        print(kicked)
-        for key, value in kicked.items():
-            if t >= value:
-                vk_session.messages.addChatUser(chat_id = cid, user_id = str(key))
-                kicked.pop(key, None)
+            if search.duplicateString(event.text):
+                kick_user(vk, event.user_id)
+
+        return_kicked(vk)
 
 
 def main():
@@ -45,6 +52,7 @@ def main():
     longpoll = VkLongPoll(vk_session)
     vk = vk_session.get_api()
     friends_add(vk)
+
 '''    while True:
         print("Listening")
         try:
@@ -53,6 +61,8 @@ def main():
             sys.exit()
         except Exception as error:
             print(error)'''
+
+
 def friends_add(vk):
 	friends = vk.friends.getRequests()
 	for friend in friends['items']:
