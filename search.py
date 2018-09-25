@@ -14,3 +14,5 @@ def search(dic, word):
 
 def duplicateString(word):
     return search(words, word)
+
+
