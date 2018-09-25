@@ -3,6 +3,7 @@ import time
 import sys
 import getpass
 
+import search
 import vk_functions
 import longpoll
 
@@ -13,7 +14,6 @@ kicked = dict()
 
 # conference id
 cid = 84
-
 
 def main():
     not_authed = True
@@ -41,8 +41,6 @@ def main():
             sys.exit()
         except Exception as error:
             print(error)
-
-
 
 
 if __name__ == '__main__':
