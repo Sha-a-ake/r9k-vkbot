@@ -36,7 +36,7 @@ def main():
     while True:
         print("Listening")
         try:
-            longpoll.listen(longpoll, vk)
+            longpoll.listen(longpoll, vk, cid, kicked)
         except KeyboardInterrupt:
             sys.exit()
         except Exception as error:
