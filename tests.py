@@ -1,21 +1,22 @@
 import unittest
 
 import search
+from chat import Chat
 
 class SearchingTestCase(unittest.TestCase):
     def setUp(self):
-        search.init() 
+        self.chat = Chat(1) # айди тут значения не имеет, любой
 
     def test_empty(self):
-        self.assertFalse(search.duplicateString("Nothing"))
+        self.assertFalse(self.chat.searchString("Nothing"))
 
     def test_same(self):
-        search.duplicateString("Nothing")
-        self.assertTrue(search.duplicateString("Nothing"))
+        self.chat.searchString("Nothing")
+        self.assertTrue(self.chat.searchString("Nothing"))
 
     def test_different(self):
-        search.duplicateString("Nothing")
-        self.assertFalse(search.duplicateString("Nothing1"))
+        self.chat.searchString("Nothing")
+        self.assertFalse(self.chat.searchString("Nothing1"))
     
     
 
