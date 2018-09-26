@@ -4,7 +4,7 @@ import sys
 import getpass
 
 import search
-import vk_functions
+import vk_functions as vkfunc
 import longpoll
 
 import vk_api
@@ -17,7 +17,7 @@ cid = 84
 
 def main():
     not_authed = True
-    vk_session = vk_api.VkApi(input('Аккаунт: '), getpass.getpass('Пароль: '))
+    vk_session = vk_api.VkApi(input('Account Login: '), getpass.getpass('Password: '), auth_handler=vkfunc.auth_handler)
 
     while not_authed:
         try:
@@ -31,7 +31,7 @@ def main():
 
     longpoll = VkLongPoll(vk_session)
     vk = vk_session.get_api()
-    friends_add(vk)
+    vkfunc.friends_add(vk)
 
     while True:
         print("Listening")
