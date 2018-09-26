@@ -15,3 +15,11 @@ def return_kicked(vk, kicked):
         if t >= value:
             vk.messages.addChatUser(chat_id = cid, user_id = str(key))
             kicked.pop(key, None)
+
+			
+# При двухфакторной аутентификации вызывается эта функция.
+def auth_handler():
+    key = input("Two-factor authentication code: ")
+    remember_device = True
+
+    return key, remember_device
